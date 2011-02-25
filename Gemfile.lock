@@ -15,6 +15,7 @@ GEM
       rack-jsonp
       rack-mount (~> 0.6.13)
     json (1.5.1)
+    log4r (1.1.9)
     multi_json (0.0.5)
     multi_xml (0.2.1)
     rack (1.2.1)
@@ -28,4 +29,5 @@ PLATFORMS
 
 DEPENDENCIES
   grape
+  log4r
   xen!

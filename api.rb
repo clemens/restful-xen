@@ -1,16 +1,22 @@
 require 'grape'
 
+require 'xen/server'
 require 'xen/instance'
-Xen::Instance.populdate
+
+Xml::Instance.class_eval do
+  def serializable_hash
+    Hash[*[:dom_id, :name, :memory, :vcpus, :state, :time].map { |attribute| [attribute, send(attribute)] }.flatten]
+  end
+end
 
 module Xen
   class API < Grape::API
     resources :machines do
       helpers do
-        def find(id)
-          server = Xen::Instance.find(id)
-          error!('404 Not Found', 404) if server.nil?
-          server
+        def find(name)
+          instance = Xen::Instance.find_by_name(name)
+          error!('404 Not Found', 404) if instance.nil?
+          instance
         end
       end
 
@@ -18,41 +24,46 @@ module Xen
         Instance.all.map { |instance| instance.serializable_hash }
       end
 
-      get ':id' do
-        find(params[:id])
+      get ':name' do
+        find(params[:name])
       end
 
       post do
         Instance.create(params)
       end
 
-      put ':id/reboot' do
-        server = find(params[:id])
-        server.reboot
+      put ':name/start' do
+        Xen::Instance.start(params[:name])
+      end
+
+      put ':name/reboot' do
+        instance = find(params[:name])
+        instance.reboot
 
         status(202)
 
-        server
+        instance
       end
 
-      put ':id/shutdown' do
-        server = find(params[:id])
-        server.shutdown
+      put ':name/shutdown' do
+        instance = find(params[:name])
+        instance.shutdown
 
         status(202)
 
-        server
+        instance
       end
 
-      put ':id' do
-        server = find(params[:id])
-        server.update_attributes(params)
-        server
-      end
+      # put ':name' do
+      #   instance = find(params[:name])
+      #   instance.update_attributes(params)
+      #   instance
+      # end
 
-      delete ':id' do
-        server = find(params[:id])
-        server.destroy
+      delete ':name' do
+        instance = find(params[:name])
+        instance.destroy
+        instance
       end
     end
   end

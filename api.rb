@@ -29,7 +29,17 @@ module Xen
       end
 
       post do
-        Instance.create(params)
+        attributes = {
+          :name   => params['name'],
+          :ip     => params['ip'],
+          :vcpus  => params['vcpus'],
+          :memory => params['memory'],
+          :size   => params['size'],
+          :arch   => params['arch'],
+          :dist   => params['dist']
+        }
+
+        Instance.create(attributes)
       end
 
       put ':name/start' do

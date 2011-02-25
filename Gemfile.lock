@@ -1,3 +1,9 @@
+GIT
+  remote: git://github.com/foexle/ruby-xen.git
+  revision: feb190ac36d4490a127514bf0b16cfc96bd56f2b
+  specs:
+    xen (0.0.3)
+
 GEM
   remote: http://rubygems.org/
   specs:
@@ -22,3 +28,4 @@ PLATFORMS
 
 DEPENDENCIES
   grape
+  xen!

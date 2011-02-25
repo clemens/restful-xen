@@ -10,6 +10,9 @@ curl -v -d name=Test+Server+3 -d vcpus=2 -d memory=4Gb -d size=100Gb -d ip=192.1
 # update machine with name [NAME] to 2 cpus
 curl -v -X PUT -d vcpus=2 'http://localhost:3000/machines/[NAME]'
 
+# start machine with name [NAME]
+curl -v -X PUT 'http://localhost:3000/machines/[NAME]/start'
+
 # reboot machine with name [NAME]
 curl -v -X PUT 'http://localhost:3000/machines/[NAME]/reboot'
 

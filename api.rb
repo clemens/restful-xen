@@ -3,7 +3,7 @@ require 'grape'
 require 'xen/server'
 require 'xen/instance'
 
-Xml::Instance.class_eval do
+Xen::Instance.class_eval do
   def serializable_hash
     Hash[*[:dom_id, :name, :memory, :vcpus, :state, :time].map { |attribute| [attribute, send(attribute)] }.flatten]
   end

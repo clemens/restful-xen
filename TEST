@@ -2,19 +2,19 @@
 curl -v 'http://localhost:3000/machines'
 
 # get details for one machine
-curl -v 'http://localhost:3000/machines/1'
+curl -v 'http://localhost:3000/machines/[NAME]'
 
 # create a new machine
-curl -v -d name=Test+Server+3 -d cpus=2 -d memory=4096M -d hdd=1000G 'http://localhost:3000/machines'
+curl -v -d name=Test+Server+3 -d vcpus=2 -d memory=4Gb -d size=100Gb -d ip=192.168.0.1 -d arch=amd64 -d dist=lucid 'http://localhost:3000/machines'
 
-# update machine with id 1 to 2 cpus
-curl -v -X PUT -d cpus=2 'http://localhost:3000/machines/1'
+# update machine with name [NAME] to 2 cpus
+curl -v -X PUT -d vcpus=2 'http://localhost:3000/machines/[NAME]'
 
-# reboot machine with id 1
-curl -v -X PUT 'http://localhost:3000/machines/1/reboot'
+# reboot machine with name [NAME]
+curl -v -X PUT 'http://localhost:3000/machines/[NAME]/reboot'
 
-# shutdown machine with id 1
-curl -v -X PUT 'http://localhost:3000/machines/1/shutdown'
+# shutdown machine with name [NAME]
+curl -v -X PUT 'http://localhost:3000/machines/[NAME]/shutdown'
 
-# delete machine with id 3
-curl -v -X DELETE 'http://localhost:3000/machines/3'
+# delete machine with name [NAME]
+curl -v -X DELETE 'http://localhost:3000/machines/[NAME]'
